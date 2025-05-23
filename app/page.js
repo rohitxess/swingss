@@ -1,9 +1,10 @@
-import Image from "next/image";
+import Hero from "@/components/Hero";
+import Main from "@/components/Main";
 
 export default function Home() {
   return (
-    <h1 className="text-2xl font-bold underline">
-      Hello world!
-    </h1>
+    <Main classname="">
+      <Hero />
+    </Main>
   )
 }
