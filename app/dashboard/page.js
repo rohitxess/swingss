@@ -1,3 +1,4 @@
+
 import Main from "@/components/Main";
 import Loading from "@/components/Loading";
 import Dashboard from "@/components/Dashboard";
@@ -8,19 +9,19 @@ export const metadata =  {
 }
 export default function DashboardPage() {
     
-    const isAuthenticated = false;
+    const isAuthenticated = true;
 
     let children = (
         <Login />
     )
 
+    
     if(isAuthenticated){
-        let children =(
+
+         children = (
             <Dashboard />
         )
     }
-
-
     
     return (
         <Main>
