@@ -1,6 +1,6 @@
 "use client";
 import { Fugaz_One } from "next/font/google";
-import CalendarComp from "./Calendar";
+import Calendar from "./Calendar";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -11,7 +11,7 @@ export default function Dashboard() {
     const [ data, setData ] = useState({})
 
     function countValues(){
-        
+
     }
 
     const statuses = {
@@ -60,7 +60,7 @@ export default function Dashboard() {
                     )
                 })}
             </div>
-            <CalendarComp />
+            <Calendar />
         </div>
     )
 }

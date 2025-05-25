@@ -5,19 +5,19 @@
 
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import React, { use, useEffect, useState } from "react";
-import { auth } from '../firebase'
+import React, { useEffect, useState } from "react";
+import { auth, db } from '@/firebase'
 import { useContext } from "react";
 
 const AuthContext = React.createContext();
 
 export function useAuth(){
-    console.log(useContext(AuthContext))
+    // console.log(useContext(AuthContext))
     return useContext(AuthContext)
 }
 
 export function AuthProvider({children}){
-    const [ currenUser, setCurrentUser] = useState(null)
+    const [ currentUser, setCurrentUser] = useState(null)
     const [ userDataObj, setUserDataObj ] = useState({})    
     const [ loading, setLoading ] = useState(true) 
 
@@ -75,7 +75,7 @@ export function AuthProvider({children}){
     // creating an object to collect all the authentication and db data for easy of convinience to access
 
     const value = {
-        currenUser, 
+        currentUser, 
         userDataObj,
         signup,
         logout,
