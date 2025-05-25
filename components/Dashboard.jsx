@@ -1,11 +1,19 @@
 "use client";
 import { Fugaz_One } from "next/font/google";
 import CalendarComp from "./Calendar";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
 export default function Dashboard() {
-    
+    const { currentUser, userDataObj } = useAuth();
+    const [ data, setData ] = useState({})
+
+    function countValues(){
+        
+    }
+
     const statuses = {
         num_days: 14,
         time_remaining: '13:14:26',
@@ -13,12 +21,19 @@ export default function Dashboard() {
     }
 
     const moods = {
-        'Crying':'😭',
+        'Happy':'😀',
         'Sad':'😓',
-        'Exsisting':'😀',
+        'Excited':'🤩',
         'Good':'😁',
-        'Elated':'😍',
+        'Loved':'😍',
     }
+
+    useEffect(() => {
+        if (!currentUser || userDataObj){
+            return 
+        }
+        setData(userDataObj)
+    },[currentUser, userDataObj])
 
     return (
         <div className="flex flex-col flex-1 gap-8 sm:gap-12 md:gap-16">

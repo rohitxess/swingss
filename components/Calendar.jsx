@@ -23,6 +23,7 @@ const months = {
 
 const date = new Date();
 
+// lets  write the code to render our own calendar
 
 export default function CalendarComp(props) {
     const { demo } = props
