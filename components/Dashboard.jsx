@@ -7,11 +7,17 @@ import { useAuth } from "@/context/AuthContext";
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
 export default function Dashboard() {
-    const { currentUser, userDataObj } = useAuth();
+    // const { currentUser, userDataObj } = useAuth();
     const [ data, setData ] = useState({})
 
     function countValues(){
 
+    }
+
+    function handleSetMood(mood){
+        //update the current state 
+        //update the global state 
+        //update the firebase
     }
 
     const statuses = {
@@ -28,12 +34,12 @@ export default function Dashboard() {
         'Loved':'😍',
     }
 
-    useEffect(() => {
-        if (!currentUser || userDataObj){
-            return 
-        }
-        setData(userDataObj)
-    },[currentUser, userDataObj])
+    // useEffect(() => {
+    //     if (!currentUser || userDataObj){
+    //         return 
+    //     }
+    //     setData(userDataObj)
+    // },[currentUser, userDataObj])
 
     return (
         <div className="flex flex-col flex-1 gap-8 sm:gap-12 md:gap-16">
@@ -60,7 +66,7 @@ export default function Dashboard() {
                     )
                 })}
             </div>
-            <Calendar />
+            <Calendar data={data} handleSetMood={handleSetMood} />
         </div>
     )
 }
