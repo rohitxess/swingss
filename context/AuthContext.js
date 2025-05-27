@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from '@/firebase'
 import { useContext } from "react";
 
-const AuthContext = React.createContext();
+const AuthContext = React.createContext(""); // forgot to pass an empty value 
 
 export function useAuth(){
     // console.log(useContext(AuthContext))
@@ -18,19 +18,21 @@ export function useAuth(){
 
 export function AuthProvider({children}){
     const [ currentUser, setCurrentUser] = useState(null)
-    const [ userDataObj, setUserDataObj ] = useState({})    
+    const [ userDataObj, setUserDataObj ] = useState(null)    
     const [ loading, setLoading ] = useState(true) 
 
     //Auth Handlers
 
-    async function signup(email, password){
+    function signup(email, password){
 
         return createUserWithEmailAndPassword(auth,email, password)
     }
+    console.log(signup)
 
-    async function login(email, password){
+    function login(email, password){
         return signInWithEmailAndPassword(auth, email, password)
     }
+    console.log(login)
     
     function logout(){
         setUserDataObj(null)
@@ -77,11 +79,14 @@ export function AuthProvider({children}){
     const value = {
         currentUser, 
         userDataObj,
+        setUserDataObj,
         signup,
         logout,
         login,
         loading
     }
+
+    console.log(value)
 
     return (
         <AuthContext.Provider value={value}>

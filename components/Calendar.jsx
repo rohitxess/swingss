@@ -27,6 +27,14 @@ const monthsArr = Object.keys(months)
 const now = new Date();
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 const dayList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+
+
+function handleIncrementMonth(val){
+    // value +1 -1
+    // if we hit the bounds of the months, then we can just adjust the uear that is displayed instead 
+}
+
 // lets  write the code to render our own calendar
 
 export default function Calendar(props) {

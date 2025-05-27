@@ -3,21 +3,52 @@ import { Fugaz_One } from "next/font/google";
 import Calendar from "./Calendar";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { doc, setDoc } from "firebase/firestore";
+import Loading from "./Loading";
+import Login from "./Login";
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
 export default function Dashboard() {
-    // const { currentUser, userDataObj } = useAuth();
+    const { currentUser, userDataObj, setUserDataObj, loading } = useAuth()
     const [ data, setData ] = useState({})
 
     function countValues(){
 
     }
 
-    function handleSetMood(mood){
+   async function handleSetMood(mood, day, month, year){
+
+        
+    try{
+        const newData = { ...userDataObj}
+        if (!newData?.[year]){
+            newData[year] = {}
+        }
+        if (!newData?.[year]?.[month]){
+            newData[year][month] = {}
+        }
+
+
+        newData[year][month][day] = mood;
         //update the current state 
+        setData(newData)
         //update the global state 
+        setUserDataObj(newData)
         //update the firebase
+
+        const docRef =  doc(db, 'users', currentUser.uid)
+        const res = await setDoc(docRef, {
+            [year]: {
+                [month]: {
+                    [day]: mood
+                }
+            }
+        }, {merge: true})
+
+        } catch(err){
+            console.log(err.message)
+        } 
     }
 
     const statuses = {
@@ -34,12 +65,19 @@ export default function Dashboard() {
         'Loved':'😍',
     }
 
-    // useEffect(() => {
-    //     if (!currentUser || userDataObj){
-    //         return 
-    //     }
-    //     setData(userDataObj)
-    // },[currentUser, userDataObj])
+    useEffect(() => {
+        if (!currentUser || userDataObj){
+            return 
+        }
+        setData(userDataObj)
+    },[currentUser, userDataObj])
+
+    if (loading){
+        return <Loading />
+    }
+    if(!currentUser){
+        return <Login/>
+    }
 
     return (
         <div className="flex flex-col flex-1 gap-8 sm:gap-12 md:gap-16">
@@ -59,7 +97,10 @@ export default function Dashboard() {
             <div className="flex items-strech flex-wrap sm:grid-cols-5 gap-4">
                 {Object.keys(moods).map((mood, moodIndex) => {
                     return (
-                        <button className={"p-4 px-5 rounded-2xl purpleShadow duration-200 bg-rose-50 hover:bg-grey-200 flex flex-col items-center flex-1 " + (moodIndex === 4 ? 'col-span-2 sm:col-span-1' :  ' ')} key={moodIndex}>
+                        <button onClick={() => {
+                            const currentMoodValue = moodIndex + 1 
+                            handleSetMood(currentMoodValue)
+                        }} className={"p-4 px-5 rounded-2xl purpleShadow duration-200 bg-rose-50 hover:bg-grey-200 flex flex-col items-center flex-1 " + (moodIndex === 4 ? 'col-span-2 sm:col-span-1' :  ' ')} key={moodIndex}>
                             <p className="text-4xl sm:text-5xl md:text-6xl">{moods[mood]}</p>
                             <p className={"text-gray-500 text-xs sm:text-sm md:text-base"}>{mood}</p>
                         </button>
