@@ -24,7 +24,6 @@ export function AuthProvider({children}){
     //Auth Handlers
 
     function signup(email, password){
-
         return createUserWithEmailAndPassword(auth,email, password)
     }
     console.log(signup)
@@ -62,9 +61,9 @@ export function AuthProvider({children}){
                 if (docSnap.exists()){
                     console.log('Found the data')
                     firebaseData = docSnap.data();
-                    console.log(firebaseData)
+                   
                 }
-                setUserDataObj = firebaseData
+                setUserDataObj(firebaseData)
             }catch(err){
                 console.log(err.message)
             }finally{

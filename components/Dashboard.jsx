@@ -66,9 +66,9 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        if (!currentUser || userDataObj){
+        if (!currentUser || !userDataObj){
             return 
-        }
+        }          
         setData(userDataObj)
     },[currentUser, userDataObj])
 
