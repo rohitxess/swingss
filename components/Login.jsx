@@ -25,10 +25,10 @@ export default function Login () {
             return 
         }
         setAuthenticating(true)
-      
+        
         
         try{
-            if(isRegister){
+            if(isRegister){  
                 console.log(isRegister)
                 console.log('Signing up a new user')
                 console.log(email)
@@ -56,7 +56,7 @@ export default function Login () {
             setEmail(e.target.value)
             console.log(e.target.value)
            } } className="w-full max-w-[400px] mx-auto px-4 py-2 sm:py-3 border boder-solid border-sky-400 rounded-full outline-none focus:boder-sky-400 hover:border-sky-600" placeholder="Email"></input>
-           <input value={password} className="w-full max-w-[400px] mx-auto px-4 py-2 sm:py-3 border boder-solid border-sky-400 rounded-full  outline-none focus:boder-sky-400 hover:border-sky-600" type="password" placeholder="Password" 
+           <input value={password} className="w-full max-w-[400px] mx-auto px-4 py-2 sm:py-3 border boder-solid border-sky-400 rounded-full outline-none focus:boder-sky-400 hover:border-sky-600" type="password" placeholder="Password" 
            onChange={(e) =>{
             setPassword(e.target.value)
             console.log(e.target.value)

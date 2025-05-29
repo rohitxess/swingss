@@ -80,8 +80,8 @@ export function AuthProvider({children}){
         userDataObj,
         setUserDataObj,
         signup,
-        logout,
         login,
+        logout,
         loading
     }
 
