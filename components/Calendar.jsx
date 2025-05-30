@@ -30,10 +30,7 @@ const dayList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday
 
 
 
-function handleIncrementMonth(val){
-    // value +1 -1
-    // if we hit the bounds of the months, then we can just adjust the uear that is displayed instead 
-}
+
 
 // lets  write the code to render our own calendar
 
@@ -43,6 +40,7 @@ export default function Calendar(props) {
     const currMonth = now.getMonth();
     const [ selectedMonth, setSelectedMonth ] = useState(Object.keys(months)[currMonth])
     const [ selectedYear, setSelectedYear ] = useState(now.getFullYear())
+    const numericMonth = Object.keys(months).indexOf(selectedMonth)
     const data = completeData?.[selectedYear]?.[numericMonth] || {}
 
     const monthNow = new Date(selectedYear,Object.keys(months).indexOf(selectedMonth),1)
@@ -51,9 +49,38 @@ export default function Calendar(props) {
 
     const daysToDisplay = firstDayOfMonth + dayInMonths
     const numRows = (Math.floor(daysToDisplay / 7)) + (daysToDisplay % 7 ? 1 : 0)
-     
+    
+    function handleIncrementMonth(val){
+        // value +1 -1
+        // if we hit the bounds of the months, then we can just adjust the uear that is displayed instead 
+        if (numericMonth + val < 0){
+            //set month value = 11 and derement the year 
+            setSelectedYear(curr => curr - 1)
+            setSelectedMonth(monthsArr[monthsArr.length - 1])
+        } else if (numericMonth + val > 11){
+            //set month val = 0 and increment the year 
+            setSelectedYear(curr => curr + 1)
+            setSelectedMonth(monthsArr[0])
+        }else{
+            setSelectedMonth(monthsArr[numericMonth + val ])
+        }
+    }
+
     return (
-        <div className="flex flex-col overflow-hidden gap-1 py-4 sm:py-6 md:py-10">
+        <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-5 gap-4">
+                <button onClick={() => {
+                    handleIncrementMonth(-1)
+                }} className="mr-auto text-sky-400 text-lg sm:text-xl duration-200 hover:opacity-60"> 
+                <i className="fa-solid fa-circle-chevron-left"></i>
+                </button>
+                <p className={"text-center col-span-3 capitalized whitespace-nowrap textGradient " + fugaz.className}>{selectedMonth}{selectedYear}</p>
+                <button onClick={() => {handleIncrementMonth(+1)}} 
+                className="ml-auto text-sky-400 text-lg sm:text-xl duration-200 hover:opacity-60">
+                    <i className="fa-solid fa-circle-chevron-right"></i>
+                </button>
+            </div>
+             <div className="flex flex-col overflow-hidden gap-1 py-4 sm:py-6 md:py-10">
             {[...Array(numRows).keys()].map((row, rowIndex) => {
                 return (
                     <div key={rowIndex} className="grid grid-cols-7 gap-1">
@@ -81,6 +108,7 @@ export default function Calendar(props) {
                     </div>
                 )
             })}
+        </div>
         </div>
     )
 }
