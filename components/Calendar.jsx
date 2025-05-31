@@ -29,9 +29,6 @@ const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 const dayList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 
-
-
-
 // lets  write the code to render our own calendar
 
 export default function Calendar(props) {
@@ -59,7 +56,7 @@ export default function Calendar(props) {
             setSelectedMonth(monthsArr[monthsArr.length - 1])
         } else if (numericMonth + val > 11){
             //set month val = 0 and increment the year 
-            setSelectedYear(curr => curr + 1)
+            setSelectedYear(curr => curr + 1) // arrow function to get the values 
             setSelectedMonth(monthsArr[0])
         }else{
             setSelectedMonth(monthsArr[numericMonth + val ])
@@ -74,7 +71,7 @@ export default function Calendar(props) {
                 }} className="mr-auto text-sky-400 text-lg sm:text-xl duration-200 hover:opacity-60"> 
                 <i className="fa-solid fa-circle-chevron-left"></i>
                 </button>
-                <p className={"text-center col-span-3 capitalized whitespace-nowrap textGradient " + fugaz.className}>{selectedMonth}{selectedYear}</p>
+                <p className={"text-center col-span-3 capitalized whitespace-nowrap textGradient " + fugaz.className}>{selectedMonth}, {selectedYear}</p>
                 <button onClick={() => {handleIncrementMonth(+1)}} 
                 className="ml-auto text-sky-400 text-lg sm:text-xl duration-200 hover:opacity-60">
                     <i className="fa-solid fa-circle-chevron-right"></i>
@@ -96,11 +93,10 @@ export default function Calendar(props) {
                             }
 
                             let color = demo ?
-                            gradients.blue[baseRating[dayIndex]] : dayIndex in data ? 
-                            gradients.blue[data[dayIndex]] : 'white'
+                            gradients.blue[baseRating[dayIndex]] : dayIndex in data ? gradients.blue[data[dayIndex]] : 'white'
 
                             return (
-                                <div style={{ background: color }} className={"text-xs sm:text-sm border border-solid p-2 flex items-center gap-2 justify-between rounded-lg " + (isToday ? 'border-blue-400' : 'border-blue-100' ) + (color === 'white' ? 'text-blue-400' : 'text-white' )} key={dayOfWeekIndex}>
+                                <div style={{ background: color }} className={"text-xs sm:text-sm border border-solid p-2 flex items-center gap-2 justify-between rounded-lg " + (isToday ? 'border-blue-400' : 'border-blue-100 ' ) + (color === 'white' ? 'text-sky-400' : 'text-white' )} key={dayOfWeekIndex}>
                                     <p>{dayIndex}</p>
                                 </div>
                             )
