@@ -9,7 +9,7 @@ export default function CallToAction(){
 
     if (currentUser){
         return (
-            <div className='max-w-[600px] mx-auto w-full'>
+            <div className='flex flex-col items-center max-w-[600px] mx-auto w-full'>
                 <Link href={'/dashboard'}> 
                     <Button text="Go to Dashboard" dark/>
                 </Link>
@@ -27,3 +27,5 @@ export default function CallToAction(){
     </div>        
     )
 }
+
+//max-w-[600px] mx-auto w-full
