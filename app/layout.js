@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
 
   const footer = (
     <footer className="p-4 sm:p-8 grid place-items-center ">
-      <p className={"text-sans-600 " + fugaz.className}>Created with ❤️ for Alison </p>
+      <p className={"text-sans-600 " + fugaz.className}>Created for Alison 😜 👧🏼  </p>
     </footer>
   )
   return (

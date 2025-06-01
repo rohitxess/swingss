@@ -74,10 +74,10 @@ export default function Dashboard() {
     }
 
     const moods = {
-        'Happy':'😀',
         'Sad':'😓',
-        'Excited':'🤩',
         'Good':'😁',
+        'Excited':'🤩',
+        'Happy':'😀',
         'Loved':'😍',
     }
 

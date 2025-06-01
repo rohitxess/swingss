@@ -27,6 +27,7 @@ export default function Login () {
     }
 
     async function googleAuth(){
+        
             const auth = getAuth();
     signInWithPopup(auth, googleProvider)
     .then((result) => {
@@ -81,6 +82,23 @@ export default function Login () {
 
     }
 
+    const Input = () => {
+        const handleKeyDown = (event) => {
+          if (event.key === 'Enter') {
+            return handleSubmit()
+          }
+        }
+      }
+
+    function handleHide(){
+//         var x = document.getElementById("myInput");
+//   if (x.type === "password") {
+//     x.type = "text";
+//   } else {
+//     x.type = "password";
+//   }
+    }
+
     return (
         <div className="flex flex-col flex-1 justify-center items-center gap-4">
            <h3 className={"text-4xl sm:text-5xl md:text-6xl " + fugaz.className }>{isRegister ? 'Register' : 'Log In'}</h3>
@@ -95,16 +113,18 @@ export default function Login () {
             setPassword(e.target.value)
             console.log(e.target.value)
        }}></input>
+       
        {/* <p className="w-full max-w-[400px] mx-auto text-red-400">error message</p> */}
            <div className="max-w-[400px] w-full mx-auto ">
                 <Button clickHandler={handleSubmit} text={ authenticating? ' Submitting' : ' Submit '} full />
                 <div className="max-w-[400px] grid grid-cols-2 mt-4 mx-auto">
                     <Button clickHandler={googleAuth} text={'Google'}full />
                     <Button text={ 'Github '} full />
-                    <Button className=''text={ 'Facebook' } full />
+                    <Button className='mt-10' text={ 'Facebook' } full />
+                    <Button className='mt-4' text={ 'Twitter' } full />
                 </div>
            </div>
-           <p className="text-center">{isRegister ? 'Already have an account' : 'Don\'t have an account?'} <span className="text-sky-600"> <button onClick={() => setIsRegister(!isRegister)}>{isRegister? 'Login' : 'Register'}</button></span></p>
+           <p className="text-center">{isRegister ? 'Already have an account?' : 'Don\'t have an account?'} <span className="text-sky-600"> <button onClick={() => setIsRegister(!isRegister)}>{isRegister? 'Login' : 'Register'}</button></span></p>
         </div>
     )
 }

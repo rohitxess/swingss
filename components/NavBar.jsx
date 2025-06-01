@@ -1,6 +1,13 @@
 
 
 export default function Navigation(){
+
+    // renders on the dashboard 
+    // username on the top 
+    // notes section 
+    // can place the logout component at the bottom 
+    // toggle nav bar to adjust the screen size 
+    
     return (
         <nav>
             <p>1</p>
