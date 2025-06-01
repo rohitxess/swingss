@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
 import Loading from "./Loading";
 import Login from "./Login";
+import Navigation from "./NavBar";
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
@@ -62,7 +63,7 @@ export default function Dashboard() {
         }, {merge: true})
 
         } catch(err){
-            console.log(err.message)
+            console.log('Failed to set data', err.message)
         } 
     }
 
@@ -100,24 +101,24 @@ export default function Dashboard() {
                 {Object.keys(statuses).map((status, statusIndex) => {
                         return (
                             <div key={statusIndex} className='flex flex-col gap-1 sm:gap-2'>
-                                <p className='font-medium uppercase text-xs sm:text-sm truncate'>{status.replaceAll('_', ' ')}</p>
+                                <p className='font-medium capitalize text-xs sm:text-sm truncate'>{status.replaceAll('_', ' ')}</p>
                                 <p className={'text-base sm:text-lg truncate ' + fugaz.className}>{statuses[status]}{status === 'num_days' ? ' 🔥' : ''}</p>
                             </div>
                         )})
                     }
             </div>
-            <div className={"text-5xl sm:text-6xl md:text-6xl text-center " + fugaz.className}>
-                <h4>How do you<span className="textGradient">feel</span>today?</h4>
-            </div>
+            <h4 className={"text-5xl sm:text-6xl md:text-6xl text-center " + fugaz.className}>
+                How do you<span className="textGradient">feel</span>today?
+            </h4>
             <div className="flex items-strech flex-wrap sm:grid-cols-5 gap-4">
                 {Object.keys(moods).map((mood, moodIndex) => {
                     return (
                         <button onClick={() => {
                             const currentMoodValue = moodIndex + 1 
                             handleSetMood(currentMoodValue)
-                        }} className={"p-4 px-5 rounded-2xl purpleShadow duration-200 bg-rose-50 hover:bg-grey-200 flex flex-col items-center flex-1 " + (moodIndex === 4 ? 'col-span-2 sm:col-span-1' :  ' ')} key={moodIndex}>
+                        }} className={"p-4 px-5 rounded-2xl purpleShadow duration-200 bg-rose-50 hover:bg-grey-200 flex flex-col items-center gap-2 flex-1 " + (moodIndex === 4 ? 'col-span-2 sm:col-span-1 ' :  ' ')} key={moodIndex}>
                             <p className="text-4xl sm:text-5xl md:text-6xl">{moods[mood]}</p>
-                            <p className={"text-gray-500 text-xs sm:text-sm md:text-base"}>{mood}</p>
+                            <p className={"text-gray-500 text-xs sm:text-sm md:text-base " + fugaz.className}>{mood}</p>
                         </button>
                     )
                 })}
