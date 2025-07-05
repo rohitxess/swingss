@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from '@/firebase'
 import { useContext } from "react";
 
-const AuthContext = React.createContext(""); // forgot to pass an empty value 
+const AuthContext = React.createContext(); // forgot to pass an empty value , changed the ("")
 
 export function useAuth(){
     // console.log(useContext(AuthContext))
@@ -26,12 +26,12 @@ export function AuthProvider({children}){
     function signup(email, password){
         return createUserWithEmailAndPassword(auth,email, password)
     }
-    console.log(signup)
+   
 
     function login(email, password){
         return signInWithEmailAndPassword(auth, email, password)
     }
-    console.log(login)
+   
     
     function logout(){
         setUserDataObj(null)

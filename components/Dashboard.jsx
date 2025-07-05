@@ -4,6 +4,7 @@ import Calendar from "./Calendar";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 import Loading from "./Loading";
 import Login from "./Login";
 import Navigation from "./NavBar";
@@ -54,6 +55,7 @@ export default function Dashboard() {
         //update the firebase
 
         const docRef =  doc(db, 'users', currentUser.uid)
+        console.log('docref',docRef)
         const res = await setDoc(docRef, {
             [year]: {
                 [month]: {
@@ -96,7 +98,10 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="flex flex-col flex-1 gap-8 sm:gap-12 md:gap-16">
+        <div className="flex flex-col flex-1 gap-8 sm:gap-12 md:gap-16 md:overflow-hidden">
+            {/* <div className="w-full flex-none md:w-64">
+                <Navigation />    
+            </div> */}
             <div className="grid sm:grid-cols-3 bg-neutral-800 text-white rounded-lg p-4">
                 {Object.keys(statuses).map((status, statusIndex) => {
                         return (
