@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head />
       <AuthProvider>
-        <body className={'w-full max-w-[1000px] mx-auto text-sm sm:text-base min-h-screen flex flex-col text-slate-800  ' + opensans.className}>
+        <body className={'w-full max-w-[2000px] mx-auto text-sm sm:text-base min-h-screen flex flex-col text-slate-800  ' + opensans.className}>
           {header}
           {children}
           {footer}

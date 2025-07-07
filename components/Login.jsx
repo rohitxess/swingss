@@ -3,7 +3,7 @@ import { Fugaz_One } from "next/font/google";
 import Button from "./Button";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider, TwitterAuthProvider } from "firebase/auth";
 import { googleProvider } from "@/firebase";
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
@@ -49,6 +49,81 @@ export default function Login () {
         // ...
     });
     }
+
+    // auth logic for github, facebook and twitter
+    async function githubAuth(){
+        const provider = new GithubAuthProvider();
+        const auth = getAuth();
+        signInWithPopup(auth, provider).then((result) =>  {
+        // This gives you a Github Access Token. You can use it to access the Github API.
+
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;   
+        
+        // signed in user info 
+
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+
+        }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // the email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GithubAuthProvider.credentialFromError(error);
+        })
+    }
+
+    async function facebookAuth(){
+        const provider = new FacebookAuthProvider();
+        const auth = getAuth();
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // The signed-in user info.
+    const user = result.user;
+
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    const credential = FacebookAuthProvider.credentialFromResult(result);
+    const accessToken = credential.accessToken;
+
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = FacebookAuthProvider.credentialFromError(error);
+
+    // ...
+  });
+
+    }
+
+    async function twitterAuth(){
+        const provdider = new TwitterAuthProvider();
+        const auth = getAuth();
+        signInWithPopup(auth, provider).then((result) => {
+            // this gives the twitter Oauth access token. 
+
+            const credential = TwitterAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const secret = credential.secret;
+
+            // signed in user info 
+
+            const user = result.user;
+            
+        }).catch((error) => {
+            // logic to catch the error 
+        })
+    }
+
     async function handleSubmit(){
         // check if the email and password condition satisfies 
         // Register - check if the email is take, check if the password meets the requirement 
@@ -119,9 +194,9 @@ export default function Login () {
                 <Button clickHandler={handleSubmit} text={ authenticating? ' Submitting' : ' Submit '} full />
                 <div className="max-w-[400px] grid grid-cols-2 mt-4 mx-auto">
                     <Button clickHandler={googleAuth} text={'Google'}full />
-                    <Button text={ 'Github '} full />
-                    <Button className='mt-10' text={ 'Facebook' } full />
-                    <Button className='mt-4' text={ 'Twitter' } full />
+                    <Button clickHandler={githubAuth} text={ 'Github '} full />
+                    <Button clickHandler={facebookAuth} className='mt-10' text={ 'Facebook' } full />
+                    <Button clickHandler={twitterAuth}  className='mt-4' text={ 'Twitter' } full />
                 </div>
            </div>
            <p className="text-center">{isRegister ? 'Already have an account?' : 'Don\'t have an account?'} <span className="text-sky-600"> <button onClick={() => setIsRegister(!isRegister)}>{isRegister? 'Login' : 'Register'}</button></span></p>
