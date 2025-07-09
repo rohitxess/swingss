@@ -106,7 +106,7 @@ signInWithPopup(auth, provider)
     }
 
     async function twitterAuth(){
-        const provdider = new TwitterAuthProvider();
+        const provider = new TwitterAuthProvider();
         const auth = getAuth();
         signInWithPopup(auth, provider).then((result) => {
             // this gives the twitter Oauth access token. 
@@ -121,6 +121,12 @@ signInWithPopup(auth, provider)
             
         }).catch((error) => {
             // logic to catch the error 
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // the email of the users account used 
+            const email = error.customData.email;
+            // the AuthCredential type that was used
+            const credential = TwitterAuthProvider.credentialFromError(error);
         })
     }
 
@@ -131,7 +137,6 @@ signInWithPopup(auth, provider)
 
         if (!email || !password || password.length < 6){
             alert('Please enter the correct credentials')
-            return 
         }
         setAuthenticating(true)
         
@@ -157,36 +162,32 @@ signInWithPopup(auth, provider)
 
     }
 
-    const Input = () => {
-        const handleKeyDown = (event) => {
-          if (event.key === 'Enter') {
-            return handleSubmit()
-          }
-        }
-      }
-
-    function handleHide(){
-//         var x = document.getElementById("myInput");
-//   if (x.type === "password") {
-//     x.type = "text";
-//   } else {
-//     x.type = "password";
-//   }
-    }
+  
 
     return (
         <div className="flex flex-col flex-1 justify-center items-center gap-4">
            <h3 className={"text-4xl sm:text-5xl md:text-6xl " + fugaz.className }>{isRegister ? 'Register' : 'Log In'}</h3>
            <p>You&#39;re one step away</p>
-           <input value={email} onChange={(e) => {
+           <input value={email} 
+           onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+                handleSubmit();
+           }}}
+           onChange={(e) => {
             setEmail(e.target.value)
             console.log(e.target.value)
            } } className="w-full max-w-[400px] mx-auto px-4 py-2 sm:py-3 border boder-solid border-sky-400 rounded-full outline-none focus:boder-sky-400 hover:border-sky-600" placeholder="Email"></input>
            {/* <p className="w-full max-w-[400px] mx-auto text-red-400">error message</p> */}
            <input value={password} className="w-full max-w-[400px] mx-auto px-4 py-2 sm:py-3 border boder-solid border-sky-400 rounded-full outline-none focus:boder-sky-400 hover:border-sky-600" type="password" placeholder="Password" 
+           // event handler for enter key 
+           onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+                handleSubmit();
+           }}}
            onChange={(e) =>{
             setPassword(e.target.value)
             console.log(e.target.value)
+            
        }}></input>
        
        {/* <p className="w-full max-w-[400px] mx-auto text-red-400">error message</p> */}

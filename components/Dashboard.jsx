@@ -77,10 +77,10 @@ export default function Dashboard() {
 
     const moods = {
         'Sad':'😓',
-        'Good':'😁',
-        'Excited':'🤩',
-        'Happy':'😀',
-        'Loved':'😍',
+        'Okay':'😁',
+        'Happy':'🤩',
+        'Excited':'😀',
+        'Cloud9':'😍',
     }
 
     useEffect(() => {
@@ -121,7 +121,7 @@ export default function Dashboard() {
                         <button onClick={() => {
                             const currentMoodValue = moodIndex + 1 
                             handleSetMood(currentMoodValue)
-                        }} className={"p-4 px-5 rounded-2xl purpleShadow duration-200 bg-rose-50 hover:bg-grey-200 flex flex-col items-center gap-2 flex-1 " + (moodIndex === 4 ? 'col-span-2 sm:col-span-1 ' :  ' ')} key={moodIndex}>
+                        }} className={"p-4 px-5 rounded-2xl purpleShadow duration-200 bg-slate-100 hover:bg-grey-200 flex flex-col items-center gap-2 flex-1 " + (moodIndex === 4 ? 'col-span-2 sm:col-span-1 ' :  ' ')} key={moodIndex}>
                             <p className="text-4xl sm:text-5xl md:text-6xl">{moods[mood]}</p>
                             <p className={"text-gray-500 text-xs sm:text-sm md:text-base " + fugaz.className}>{mood}</p>
                         </button>
